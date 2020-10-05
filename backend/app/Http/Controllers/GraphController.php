@@ -32,6 +32,7 @@ class GraphController extends Controller
             // 重複削除して取得
             $fighters = FighterPower::where('user_id', $user_id)->groupBy('fighter')->get(['fighter']);
         }
+
         // ファイター情報を入力ページへ
         return view('index', ['fighters' => $fighters]);
     }
@@ -105,7 +106,7 @@ class GraphController extends Controller
         // 特定のレコードを削除
         FighterPower::where('user_id', $user_id)->where('created_at', $created_at)->delete();
 
-        return view('index');
+        return redirect()->to('/');
     }
 
     // 編集ページを表示
@@ -132,6 +133,6 @@ class GraphController extends Controller
             }
         }
 
-        return view('index');
+        return redirect()->to('/');
     }
 }
