@@ -23,6 +23,15 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// 入力ページ
 Route::get('/', [GraphController::class, 'index'])->middleware('auth');
+
+// データベースに登録
 Route::post('/inputData', [GraphController::class, 'inputData'])->name('inputData')->middleware('auth');
+
+// グラフを表示
 Route::get('/graph', [GraphController::class, 'showGraph'])->middleware('auth');
+
+// 削除
+Route::get('/delete', [GraphController::class, 'showDelete'])->name('delete')->middleware('auth');
+Route::post('/delete', [GraphController::class, 'delete'])->middleware('auth');

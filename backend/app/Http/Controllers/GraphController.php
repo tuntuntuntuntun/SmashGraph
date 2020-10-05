@@ -62,4 +62,29 @@ class GraphController extends Controller
 
         return view('graph', ['fighter' => $fighter, 'power' => $power, 'created_at' => $created_at]);
     }
+
+    // 削除ページを表示
+    public function showDelete(Request $request)
+    {
+        $user_id = auth()->user()->id;
+
+        $fighter = json_decode($request->fighter);
+
+        // ログインユーザーかつ現在表示されているグラフのファイターであるレコードを取得
+        $delete_fighter = FighterPower::where('user_id', $user_id)->where('fighter', $fighter)->get();
+
+        return view('delete', ['fighter' => $fighter, 'delete_fighter' => $delete_fighter]);
+    }
+
+    public function delete(Request $request)
+    {
+        $user_id = auth()->user()->id;
+
+        $created_at = $request->delete_record;
+
+        // 特定のレコードを削除
+        FighterPower::where('user_id', $user_id)->where('created_at', $created_at)->delete();
+
+        return view('index');
+    }
 }
