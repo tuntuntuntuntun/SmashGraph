@@ -23,8 +23,9 @@
 </form>
 
 @foreach($fighters as $fighter)
-    <ul class="list-group" style="max-width: 400px;">
-    <li class="list-group-item">{{ $fighter->fighter }}</li>
-    </ul>
+    <form action="{{ route('graph') }}" method="get">
+        <input type="hidden" name="fighter" value="{{ $fighter->fighter }}">
+        <button type="submit">{{ $fighter->fighter }}</button>
+    </form>
 @endforeach
 @endsection

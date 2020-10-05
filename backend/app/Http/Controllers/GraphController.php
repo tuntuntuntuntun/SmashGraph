@@ -56,12 +56,15 @@ class GraphController extends Controller
         $user_id = auth()->user()->id;
         
         // 最新のレコードまたは選択されたファイターのレコードを取得
-        if (true) {
+        if ($request->isMethod('post')) {
             // ログインユーザーの最新のレコードを取得
             $fighter_power = FighterPower::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();
-            // 上で取得したファイターが含まれるレコードを取得
-            $fighter_data = FighterPower::where('user_id', $user_id)->where('fighter', $fighter_power->fighter)->get();
+        } else if ($request->isMethod('get')) {
+            $fighter_power = FighterPower::where('user_id', $user_id)->where('fighter', $request->fighter)->first();
         }
+
+        // 上で取得したファイターが含まれるレコードを取得
+            $fighter_data = FighterPower::where('user_id', $user_id)->where('fighter', $fighter_power->fighter)->get();
 
         // ファイター名を取り出し変数へ
         $fighter = $fighter_data[0]->fighter;

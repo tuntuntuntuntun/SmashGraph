@@ -30,7 +30,7 @@ Route::get('/', [GraphController::class, 'index'])->name('index')->middleware('a
 Route::post('/inputData', [GraphController::class, 'inputData'])->name('inputData')->middleware('auth');
 
 // グラフを表示
-Route::get('/graph', [GraphController::class, 'showGraph'])->middleware('auth');
+Route::get('/graph', [GraphController::class, 'showGraph'])->name('graph')->middleware('auth');
 
 // 編集
 Route::get('/edit', [GraphController::class, 'showEdit'])->name('edit')->middleware('auth');
