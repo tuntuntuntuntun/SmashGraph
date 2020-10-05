@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GraphController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/', [GraphController::class, 'index'])->middleware('auth');
+Route::post('/inputData', [GraphController::class, 'inputData'])->name('inputData')->middleware('auth');
+Route::get('/graph', [GraphController::class, 'showGraph'])->middleware('auth');
