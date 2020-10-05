@@ -32,6 +32,10 @@ Route::post('/inputData', [GraphController::class, 'inputData'])->name('inputDat
 // グラフを表示
 Route::get('/graph', [GraphController::class, 'showGraph'])->middleware('auth');
 
+// 編集
+Route::get('/edit', [GraphController::class, 'showEdit'])->name('edit')->middleware('auth');
+Route::post('/edit', [GraphController::class, 'edit'])->middleware('auth');
+
 // 削除
 Route::get('/delete', [GraphController::class, 'showDelete'])->name('delete')->middleware('auth');
 Route::post('/delete', [GraphController::class, 'delete'])->middleware('auth');

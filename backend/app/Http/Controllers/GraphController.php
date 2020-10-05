@@ -7,6 +7,19 @@ use App\Models\FighterPower;
 
 class GraphController extends Controller
 {
+    // レコードを取得する
+    protected function getRecord($request, $view)
+    {
+        $user_id = auth()->user()->id;
+
+        $fighter = json_decode($request->fighter);
+
+        // ログインユーザーかつ現在表示されているグラフのファイターであるレコードを取得
+        $specific_fighter = FighterPower::where('user_id', $user_id)->where('fighter', $fighter)->get();
+
+        return view($view, ['fighter' => $fighter, 'specific_fighter' => $specific_fighter]);
+    }
+
     public function index()
     {
         // ファイター情報を入力ページへ
@@ -66,16 +79,10 @@ class GraphController extends Controller
     // 削除ページを表示
     public function showDelete(Request $request)
     {
-        $user_id = auth()->user()->id;
-
-        $fighter = json_decode($request->fighter);
-
-        // ログインユーザーかつ現在表示されているグラフのファイターであるレコードを取得
-        $delete_fighter = FighterPower::where('user_id', $user_id)->where('fighter', $fighter)->get();
-
-        return view('delete', ['fighter' => $fighter, 'delete_fighter' => $delete_fighter]);
+        return $this->getRecord($request, 'delete');
     }
 
+    // 削除処理
     public function delete(Request $request)
     {
         $user_id = auth()->user()->id;
@@ -84,6 +91,33 @@ class GraphController extends Controller
 
         // 特定のレコードを削除
         FighterPower::where('user_id', $user_id)->where('created_at', $created_at)->delete();
+
+        return view('index');
+    }
+
+    // 編集ページを表示
+    public function showEdit(Request $request)
+    {
+        return $this->getRecord($request, 'edit');
+    }
+
+    // 編集
+    public function edit(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        
+        // フォームの数だけループさせる
+        for ($i = 0; $i < $request->count; $i++) {
+            // フォームに値が入力されていたとき、0ではないときの処理
+            if ($request->power[$i]) {
+                $created_at = $request->created_at[$i];
+
+                // 編集するレコードを取得
+                $edit_record = FighterPower::where('user_id', $user_id)->where('created_at', $created_at)->first();
+                // 更新
+                $edit_record->update(['power' => $request->power[$i]]);
+            }
+        }
 
         return view('index');
     }
