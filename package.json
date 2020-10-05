@@ -1,0 +1,19 @@
+{
+  "name": "smashgraph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuntuntuntuntun/SmashGraph.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tuntuntuntuntun/SmashGraph/issues"
+  },
+  "homepage": "https://github.com/tuntuntuntuntun/SmashGraph#readme"
+}
