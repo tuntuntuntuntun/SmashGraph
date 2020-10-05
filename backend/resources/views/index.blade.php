@@ -15,8 +15,16 @@
     <button type="submit" class="btn btn-primary">送信</button>
 </form>
 
-<!-- <form action="" method="post"> -->
-<!-- ファイター選択フォームを作成し、その値を元に/graphへ飛ばす -->
-<!-- fighter_poewrsから情報を取得し、存在するファイターのみを表示 -->
-<!-- </form> -->
+<h2>グラフが作成されているファイターの一覧</h2>
+<!-- 検索 -->
+<form action="{{ route('index') }}" method="get">
+    <input type="text" name="search">
+    <input type="submit" value="検索">
+</form>
+
+@foreach($fighters as $fighter)
+    <ul class="list-group" style="max-width: 400px;">
+    <li class="list-group-item">{{ $fighter->fighter }}</li>
+    </ul>
+@endforeach
 @endsection

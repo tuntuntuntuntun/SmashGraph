@@ -20,10 +20,20 @@ class GraphController extends Controller
         return view($view, ['fighter' => $fighter, 'specific_fighter' => $specific_fighter]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $user_id = auth()->user()->id;
+
+        // 検索処理
+        if($request->has('search')) {
+            // キーワードに含まれているファイターのみ取得
+            $fighters = FighterPower::where('user_id', $user_id)->where('fighter', 'like', '%'.$request->search.'%')->groupBy('fighter')->get(['fighter']);
+        } else {
+            // 重複削除して取得
+            $fighters = FighterPower::where('user_id', $user_id)->groupBy('fighter')->get(['fighter']);
+        }
         // ファイター情報を入力ページへ
-        return view('index');
+        return view('index', ['fighters' => $fighters]);
     }
 
     // グラフ作成に必要なデータを挿入
