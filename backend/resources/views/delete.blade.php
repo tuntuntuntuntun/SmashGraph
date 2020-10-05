@@ -11,7 +11,7 @@
         </div>
     @endforeach
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">送信</button>
+        <button type="submit" class="btn btn-primary">削除する</button>
     </div>
 </form>
 @endsection
