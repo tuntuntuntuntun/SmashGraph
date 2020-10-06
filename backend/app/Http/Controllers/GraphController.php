@@ -59,11 +59,11 @@ class GraphController extends Controller
         $user_id = auth()->user()->id;
         
         // 最新のレコードまたは選択されたファイターのレコードを取得
-        if ($request->isMethod('post')) {
+        if ($request->has('search')) {
+            $fighter_power = FighterPower::where('user_id', $user_id)->where('fighter', $request->fighter)->first();
+        } else {
             // ログインユーザーの最新のレコードを取得
             $fighter_power = FighterPower::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();
-        } else if ($request->isMethod('get')) {
-            $fighter_power = FighterPower::where('user_id', $user_id)->where('fighter', $request->fighter)->first();
         }
 
         // 上で取得したファイターが含まれるレコードを取得
@@ -136,5 +136,28 @@ class GraphController extends Controller
         }
 
         return redirect()->to('/');
+    }
+
+    // 最新の世界戦闘力をツイート
+    public function tweet(Request $request)
+    {
+        $fighter = json_decode($request->fighter);
+        $power = json_decode($request->power);
+        // 最新の世界戦闘力を取得
+        $latest_power = count($power) - 1;
+        $power[$latest_power];
+
+        $twitter = new TwitterOAuth(
+            env('TWITTER_CLIENT_ID'),
+            env('TWITTER_CLIENT_SECRET'),
+            env('TWITTER_CLIENT_ID_ACCESS_TOKEN'),
+            env('TWITTER_CLIENT_ID_ACCESS_TOKEN_SECRET'));
+
+        $twitter->post("statuses/update", [
+            "status" =>
+                'ファイター: ' . $fighter . PHP_EOL . '世界戦闘力: ' . $power[$latest_power]
+        ]);
+
+        return redirect()->to('/graph');
     }
 }

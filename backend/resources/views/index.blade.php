@@ -25,6 +25,7 @@
 @foreach($fighters as $fighter)
     <form action="{{ route('graph') }}" method="get">
         <input type="hidden" name="fighter" value="{{ $fighter->fighter }}">
+        <input type="hidden" name="search" value="true">
         <button type="submit">{{ $fighter->fighter }}</button>
     </form>
 @endforeach

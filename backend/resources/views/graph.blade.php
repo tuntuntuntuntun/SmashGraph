@@ -13,6 +13,12 @@
     <input type="hidden" name="fighter" value="{{ $fighter }}">
     <button type="submit" class="btn btn-primary">データの編集はこちら</button>
 </form>
+
+<form action="{{ route('tweet') }}" method="get">
+    <input type="hidden" name="fighter" value="{{ $fighter }}">
+    <input type="hidden" name="power" value="{{ $power }}">
+    <button type="submit" class="btn btn-primary">{{ json_decode($fighter) }}の最新の世界戦闘力をツイートする</button>
+</form>
 @endsection
 
 @section('scripts')
