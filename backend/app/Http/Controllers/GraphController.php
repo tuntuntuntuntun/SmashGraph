@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\FighterPowerRequest;
 use App\Models\User;
 use App\Models\FighterPower;
 use Abraham\TwitterOAuth\TwitterOAuth;
@@ -27,9 +28,9 @@ class GraphController extends Controller
         $user_id = auth()->user()->id;
 
         // 検索処理
-        if($request->has('search')) {
+        if($request->has('keyword')) {
             // キーワードに含まれているファイターのみ取得
-            $fighters = FighterPower::where('user_id', $user_id)->where('fighter', 'like', '%'.$request->search.'%')->groupBy('fighter')->get(['fighter']);
+            $fighters = FighterPower::where('user_id', $user_id)->where('fighter', 'like', '%'.$request->keyword.'%')->groupBy('fighter')->get(['fighter']);
         } else {
             // 重複削除して取得
             $fighters = FighterPower::where('user_id', $user_id)->groupBy('fighter')->get(['fighter']);
@@ -40,11 +41,11 @@ class GraphController extends Controller
     }
 
     // グラフ作成に必要なデータを挿入
-    public function inputData(Request $request)
+    public function inputData(FighterPowerRequest $request)
     {
         // フォームから送信されたデータを変数へ
-        $fighter = $request->fighter;
-        $power = $request->power;
+        $fighter = $request->input_fighter;
+        $power = $request->input_power;
         $user_id = auth()->user()->id;
 
         // データを挿入
@@ -59,7 +60,7 @@ class GraphController extends Controller
         $user_id = auth()->user()->id;
         
         // 最新のレコードまたは選択されたファイターのレコードを取得
-        if ($request->has('search')) {
+        if ($request->has('keyword')) {
             $fighter_power = FighterPower::where('user_id', $user_id)->where('fighter', $request->fighter)->first();
         } else {
             // ログインユーザーの最新のレコードを取得
