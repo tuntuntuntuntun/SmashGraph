@@ -60,7 +60,7 @@ class GraphController extends Controller
         $user_id = auth()->user()->id;
         
         // 最新のレコードまたは選択されたファイターのレコードを取得
-        if ($request->has('keyword')) {
+        if ($request->has('search')) {
             $fighter_power = FighterPower::where('user_id', $user_id)->where('fighter', $request->fighter)->first();
         } else {
             // ログインユーザーの最新のレコードを取得
