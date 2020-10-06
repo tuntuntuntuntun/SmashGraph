@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GraphController;
+use App\Http\Controllers\Auth\TwitterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,7 @@ Route::post('/edit', [GraphController::class, 'edit'])->middleware('auth');
 // 削除
 Route::get('/delete', [GraphController::class, 'showDelete'])->name('delete')->middleware('auth');
 Route::post('/delete', [GraphController::class, 'delete'])->middleware('auth');
+
+// Auth Twitter
+Route::get('/login/twitter', [TwitterController::class, 'redirectToProvider'])->name("twitter.login");
+Route::get('/login/twitter/callback', [TwitterController::class, 'handleProviderCallback']);

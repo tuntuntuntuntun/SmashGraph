@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\FighterPower;
+use Abraham\TwitterOAuth\TwitterOAuth;
 
 class GraphController extends Controller
 {
@@ -65,7 +67,7 @@ class GraphController extends Controller
         }
 
         // 上で取得したファイターが含まれるレコードを取得
-            $fighter_data = FighterPower::where('user_id', $user_id)->where('fighter', $fighter_power->fighter)->get();
+        $fighter_data = FighterPower::where('user_id', $user_id)->where('fighter', $fighter_power->fighter)->get();
 
         // ファイター名を取り出し変数へ
         $fighter = $fighter_data[0]->fighter;
