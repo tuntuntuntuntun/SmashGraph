@@ -82,7 +82,7 @@ class GraphController extends Controller
         // created_atは配列へ
         $created_at = [];
         for ($i = 0; $i < count($fighter_data); $i++) {
-            array_push($created_at, $fighter_data[$i]->created_at);
+            array_push($created_at, $fighter_data[$i]->created_at->format('Y-m-d H:i:s'));
         }
 
         //JSONエンコード
