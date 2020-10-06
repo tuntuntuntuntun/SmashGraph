@@ -1,24 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<canvas id="myChart" width="400" height="300"></canvas>
+<div class="container">
+    <canvas id="myChart" width="400" height="300"></canvas>
 
-<!-- ファイター情報を送信する -->
-<form action="{{ route('delete') }}" method="get">
-    <input type="hidden" name="fighter" value="{{ $fighter }}">
-    <button type="submit" class="btn btn-primary">データの削除はこちら</button>
-</form>
+    <div class="d-flex justify-content-around mt-5 mb-3">
+        <!-- ファイター情報を送信する -->
+        <form action="{{ route('delete') }}" method="get">
+            <input type="hidden" name="fighter" value="{{ $fighter }}">
+            <button type="submit" class="btn btn-primary">データの削除はこちら</button>
+        </form>
 
-<form action="{{ route('edit') }}" method="get">
-    <input type="hidden" name="fighter" value="{{ $fighter }}">
-    <button type="submit" class="btn btn-primary">データの編集はこちら</button>
-</form>
-
-<form action="{{ route('tweet') }}" method="get">
-    <input type="hidden" name="fighter" value="{{ $fighter }}">
-    <input type="hidden" name="power" value="{{ $power }}">
-    <button type="submit" class="btn btn-primary">{{ json_decode($fighter) }}の最新の世界戦闘力をツイートする</button>
-</form>
+        <form action="{{ route('edit') }}" method="get">
+            <input type="hidden" name="fighter" value="{{ $fighter }}">
+            <button type="submit" class="btn btn-primary">データの編集はこちら</button>
+        </form>
+    </div>
+    <form action="{{ route('tweet') }}" method="get" class="text-center">
+        <input type="hidden" name="fighter" value="{{ $fighter }}">
+        <input type="hidden" name="power" value="{{ $power }}">
+        <button type="submit" class="btn btn-outline-primary w-75">{{ json_decode($fighter) }}の最新の世界戦闘力をツイートする</button>
+    </form>
+</div>
 @endsection
 
 @section('scripts')

@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3>{{ $fighter }}のデータを編集する</h3>
-    <form aciton="{{ route('edit') }}" method="post">
+<div class="container">
+    <h1>{{ $fighter }}のデータを編集する</h1>
+    <form aciton="{{ route('edit') }}" method="post" class="mt-5">
         @csrf
         @for($i = 0; $i < count($specific_fighter); $i++)
             <div class="form-group">
@@ -12,6 +13,7 @@
                 <input type="hidden" name="count" value="{{ count($specific_fighter) }}">
             </div> 
         @endfor
-        <button type="submit" class="btn btn-primary">更新する</button>
+        <button type="submit" class="btn btn-primary mt-4">更新する</button>
     </form>
+</div>
 @endsection
