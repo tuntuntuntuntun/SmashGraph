@@ -44,5 +44,3 @@ Route::post('/delete', [GraphController::class, 'delete'])->middleware('auth');
 // Auth Twitter
 Route::get('/login/twitter', [TwitterController::class, 'redirectToProvider'])->name('twitter.login');
 Route::get('/login/twitter/callback', [TwitterController::class, 'handleProviderCallback']);
-
-Route::get('/tweet', [GraphController::class, 'tweet'])->name('tweet')->middleware('auth');

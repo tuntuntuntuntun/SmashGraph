@@ -138,27 +138,4 @@ class GraphController extends Controller
 
         return redirect()->to('/');
     }
-
-    // 最新の世界戦闘力をツイート
-    public function tweet(Request $request)
-    {
-        $fighter = json_decode($request->fighter);
-        $power = json_decode($request->power);
-        // 最新の世界戦闘力を取得
-        $latest_power = count($power) - 1;
-        $power[$latest_power];
-
-        $twitter = new TwitterOAuth(
-            env('TWITTER_CLIENT_ID'),
-            env('TWITTER_CLIENT_SECRET'),
-            env('TWITTER_CLIENT_ID_ACCESS_TOKEN'),
-            env('TWITTER_CLIENT_ID_ACCESS_TOKEN_SECRET'));
-
-        $twitter->post("statuses/update", [
-            "status" =>
-                'ファイター: ' . $fighter . PHP_EOL . '世界戦闘力: ' . $power[$latest_power]
-        ]);
-
-        return redirect()->to('/graph');
-    }
 }
