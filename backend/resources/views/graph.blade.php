@@ -8,12 +8,12 @@
         <!-- ファイター情報を送信する -->
         <form action="{{ route('delete') }}" method="get">
             <input type="hidden" name="fighter" value="{{ $fighter }}">
-            <button type="submit" class="btn btn-primary">データの削除はこちら</button>
+            <button type="submit" class="btn btn-primary btn-sm-small">データの削除はこちら</button>
         </form>
 
         <form action="{{ route('edit') }}" method="get">
             <input type="hidden" name="fighter" value="{{ $fighter }}">
-            <button type="submit" class="btn btn-primary">データの編集はこちら</button>
+            <button type="submit" class="btn btn-primary btn-sm-small">データの編集はこちら</button>
         </form>
     </div>
 </div>
