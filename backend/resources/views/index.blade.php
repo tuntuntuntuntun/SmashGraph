@@ -25,7 +25,7 @@
         <button type="submit" class="btn btn-primary">送信</button>
     </form>
 
-    <h2 class="mt-5">グラフが作成されているファイターの一覧</h2>
+    <h2 class="mt-5 h3">グラフが作成されているファイターの一覧</h2>
     <!-- 検索 -->
     <form action="{{ route('index') }}" method="get" class="mt-4">
         <div class="form-group">
